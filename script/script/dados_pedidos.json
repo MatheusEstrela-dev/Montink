@@ -1,0 +1,242 @@
+[
+    {
+        "usuario_id": 3,
+        "data_pedido": "2025-01-23",
+        "valor_total": 317.99,
+        "status": "pendente",
+        "created_at": "2025-03-25T23:06:21",
+        "updated_at": "2025-05-09T18:34:23"
+    },
+    {
+        "usuario_id": 3,
+        "data_pedido": "2025-02-16",
+        "valor_total": 1419.41,
+        "status": "enviado",
+        "created_at": "2025-01-19T06:45:06",
+        "updated_at": "2025-01-11T11:34:28"
+    },
+    {
+        "usuario_id": 3,
+        "data_pedido": "2025-03-10",
+        "valor_total": 944.72,
+        "status": "pendente",
+        "created_at": "2025-03-04T01:33:33",
+        "updated_at": "2025-01-16T01:49:28"
+    },
+    {
+        "usuario_id": 3,
+        "data_pedido": "2025-02-13",
+        "valor_total": 159.71,
+        "status": "pendente",
+        "created_at": "2025-04-28T20:17:49",
+        "updated_at": "2025-03-03T16:01:48"
+    },
+    {
+        "usuario_id": 3,
+        "data_pedido": "2025-03-19",
+        "valor_total": 1343.99,
+        "status": "entregue",
+        "created_at": "2025-04-17T00:21:55",
+        "updated_at": "2025-01-30T11:46:02"
+    },
+    {
+        "usuario_id": 6,
+        "data_pedido": "2025-03-31",
+        "valor_total": 235.63,
+        "status": "pendente",
+        "created_at": "2025-01-31T10:53:36",
+        "updated_at": "2025-01-20T00:07:30"
+    },
+    {
+        "usuario_id": 6,
+        "data_pedido": "2025-03-24",
+        "valor_total": 266.44,
+        "status": "enviado",
+        "created_at": "2025-01-24T08:43:56",
+        "updated_at": "2025-01-19T03:54:31"
+    },
+    {
+        "usuario_id": 9,
+        "data_pedido": "2025-01-04",
+        "valor_total": 1722.55,
+        "status": "enviado",
+        "created_at": "2025-01-22T15:28:38",
+        "updated_at": "2025-02-25T07:02:31"
+    },
+    {
+        "usuario_id": 6,
+        "data_pedido": "2025-01-05",
+        "valor_total": 1742.35,
+        "status": "enviado",
+        "created_at": "2025-01-04T21:33:52",
+        "updated_at": "2025-04-04T18:08:29"
+    },
+    {
+        "usuario_id": 5,
+        "data_pedido": "2025-02-02",
+        "valor_total": 155.0,
+        "status": "pendente",
+        "created_at": "2025-04-14T05:55:44",
+        "updated_at": "2025-01-23T04:07:27"
+    },
+    {
+        "usuario_id": 10,
+        "data_pedido": "2025-02-16",
+        "valor_total": 342.62,
+        "status": "enviado",
+        "created_at": "2025-02-13T13:31:39",
+        "updated_at": "2025-01-02T05:12:21"
+    },
+    {
+        "usuario_id": 2,
+        "data_pedido": "2025-04-24",
+        "valor_total": 431.25,
+        "status": "enviado",
+        "created_at": "2025-04-23T16:41:22",
+        "updated_at": "2025-04-05T17:42:06"
+    },
+    {
+        "usuario_id": 1,
+        "data_pedido": "2025-03-02",
+        "valor_total": 1245.0,
+        "status": "enviado",
+        "created_at": "2025-04-01T22:37:19",
+        "updated_at": "2025-01-08T09:25:47"
+    },
+    {
+        "usuario_id": 6,
+        "data_pedido": "2025-04-29",
+        "valor_total": 1009.24,
+        "status": "entregue",
+        "created_at": "2025-02-17T06:37:42",
+        "updated_at": "2025-01-21T10:17:38"
+    },
+    {
+        "usuario_id": 3,
+        "data_pedido": "2025-03-10",
+        "valor_total": 1785.35,
+        "status": "pendente",
+        "created_at": "2025-01-17T19:30:20",
+        "updated_at": "2025-01-15T09:07:03"
+    },
+    {
+        "usuario_id": 5,
+        "data_pedido": "2025-05-11",
+        "valor_total": 497.72,
+        "status": "enviado",
+        "created_at": "2025-01-23T04:36:04",
+        "updated_at": "2025-02-20T08:41:45"
+    },
+    {
+        "usuario_id": 6,
+        "data_pedido": "2025-04-29",
+        "valor_total": 1035.19,
+        "status": "pendente",
+        "created_at": "2025-02-11T10:58:06",
+        "updated_at": "2025-04-26T10:45:42"
+    },
+    {
+        "usuario_id": 6,
+        "data_pedido": "2025-04-15",
+        "valor_total": 1227.35,
+        "status": "enviado",
+        "created_at": "2025-03-13T22:08:31",
+        "updated_at": "2025-03-20T23:19:43"
+    },
+    {
+        "usuario_id": 9,
+        "data_pedido": "2025-03-15",
+        "valor_total": 1990.41,
+        "status": "pendente",
+        "created_at": "2025-05-04T03:50:07",
+        "updated_at": "2025-03-24T16:48:12"
+    },
+    {
+        "usuario_id": 6,
+        "data_pedido": "2025-03-02",
+        "valor_total": 157.76,
+        "status": "enviado",
+        "created_at": "2025-03-04T21:55:34",
+        "updated_at": "2025-05-08T13:20:06"
+    },
+    {
+        "usuario_id": 7,
+        "data_pedido": "2025-01-07",
+        "valor_total": 1894.66,
+        "status": "pendente",
+        "created_at": "2025-01-26T09:28:28",
+        "updated_at": "2025-04-22T00:15:03"
+    },
+    {
+        "usuario_id": 6,
+        "data_pedido": "2025-02-02",
+        "valor_total": 1883.28,
+        "status": "entregue",
+        "created_at": "2025-01-03T06:12:50",
+        "updated_at": "2025-04-05T15:44:19"
+    },
+    {
+        "usuario_id": 4,
+        "data_pedido": "2025-04-28",
+        "valor_total": 529.62,
+        "status": "entregue",
+        "created_at": "2025-04-08T23:05:07",
+        "updated_at": "2025-04-04T10:33:15"
+    },
+    {
+        "usuario_id": 9,
+        "data_pedido": "2025-02-26",
+        "valor_total": 1895.87,
+        "status": "pendente",
+        "created_at": "2025-02-16T22:47:12",
+        "updated_at": "2025-02-04T22:20:13"
+    },
+    {
+        "usuario_id": 4,
+        "data_pedido": "2025-01-24",
+        "valor_total": 627.36,
+        "status": "pendente",
+        "created_at": "2025-02-27T18:25:20",
+        "updated_at": "2025-04-19T13:09:20"
+    },
+    {
+        "usuario_id": 6,
+        "data_pedido": "2025-03-08",
+        "valor_total": 855.27,
+        "status": "enviado",
+        "created_at": "2025-01-26T21:47:57",
+        "updated_at": "2025-05-08T23:54:04"
+    },
+    {
+        "usuario_id": 7,
+        "data_pedido": "2025-03-16",
+        "valor_total": 414.37,
+        "status": "enviado",
+        "created_at": "2025-01-07T17:18:06",
+        "updated_at": "2025-01-23T11:20:55"
+    },
+    {
+        "usuario_id": 2,
+        "data_pedido": "2025-03-14",
+        "valor_total": 1076.59,
+        "status": "enviado",
+        "created_at": "2025-04-30T09:30:27",
+        "updated_at": "2025-01-11T04:37:54"
+    },
+    {
+        "usuario_id": 7,
+        "data_pedido": "2025-01-08",
+        "valor_total": 1673.67,
+        "status": "pendente",
+        "created_at": "2025-01-15T09:15:26",
+        "updated_at": "2025-04-11T15:10:54"
+    },
+    {
+        "usuario_id": 10,
+        "data_pedido": "2025-04-17",
+        "valor_total": 1086.56,
+        "status": "enviado",
+        "created_at": "2025-03-25T01:34:17",
+        "updated_at": "2025-04-28T00:30:16"
+    }
+]

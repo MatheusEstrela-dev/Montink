@@ -1,0 +1,122 @@
+[
+    {
+        "produto_id": 1,
+        "variacao": "Verde grama",
+        "quantidade": 66,
+        "localizacao": "Monteiro",
+        "created_at": "2025-02-14T15:37:50",
+        "updated_at": "2025-01-20T15:22:30"
+    },
+    {
+        "produto_id": 2,
+        "variacao": "Índigo",
+        "quantidade": 38,
+        "localizacao": "Rios de Borges",
+        "created_at": "2025-04-25T19:43:46",
+        "updated_at": "2025-02-07T04:15:01"
+    },
+    {
+        "produto_id": 3,
+        "variacao": "Vermelho indiano",
+        "quantidade": 61,
+        "localizacao": "Porto",
+        "created_at": "2025-02-19T19:47:04",
+        "updated_at": "2025-02-19T00:40:07"
+    },
+    {
+        "produto_id": 4,
+        "variacao": "Pêssego",
+        "quantidade": 3,
+        "localizacao": "Correia de Goiás",
+        "created_at": "2025-04-25T11:17:11",
+        "updated_at": "2025-02-04T06:37:44"
+    },
+    {
+        "produto_id": 5,
+        "variacao": "Madeira",
+        "quantidade": 56,
+        "localizacao": "Duarte do Oeste",
+        "created_at": "2025-04-15T11:54:52",
+        "updated_at": "2025-03-29T20:44:29"
+    },
+    {
+        "produto_id": 6,
+        "variacao": "Cenoura",
+        "quantidade": 4,
+        "localizacao": "Cavalcanti dos Dourados",
+        "created_at": "2025-04-17T02:29:16",
+        "updated_at": "2025-04-14T10:06:39"
+    },
+    {
+        "produto_id": 7,
+        "variacao": "Amêndoa",
+        "quantidade": 63,
+        "localizacao": "Ferreira da Prata",
+        "created_at": "2025-01-22T16:35:28",
+        "updated_at": "2025-03-17T06:59:10"
+    },
+    {
+        "produto_id": 8,
+        "variacao": "Azul",
+        "quantidade": 85,
+        "localizacao": "Brito",
+        "created_at": "2025-03-14T07:01:21",
+        "updated_at": "2025-04-03T15:25:32"
+    },
+    {
+        "produto_id": 9,
+        "variacao": "Cardo",
+        "quantidade": 11,
+        "localizacao": "das Neves da Serra",
+        "created_at": "2025-05-13T19:59:36",
+        "updated_at": "2025-02-23T10:26:58"
+    },
+    {
+        "produto_id": 10,
+        "variacao": "Branco floral",
+        "quantidade": 85,
+        "localizacao": "Pimenta",
+        "created_at": "2025-03-23T04:02:43",
+        "updated_at": "2025-05-10T13:39:27"
+    },
+    {
+        "produto_id": 11,
+        "variacao": "Vermelho violeta pálido",
+        "quantidade": 70,
+        "localizacao": "Silveira de Guerra",
+        "created_at": "2025-01-12T22:37:03",
+        "updated_at": "2025-01-03T18:26:44"
+    },
+    {
+        "produto_id": 12,
+        "variacao": "Cinza claro",
+        "quantidade": 45,
+        "localizacao": "Cavalcante de Goiás",
+        "created_at": "2025-02-22T12:29:47",
+        "updated_at": "2025-04-07T12:01:28"
+    },
+    {
+        "produto_id": 13,
+        "variacao": "Azul cobalto",
+        "quantidade": 45,
+        "localizacao": "Ribeiro do Sul",
+        "created_at": "2025-02-12T23:56:09",
+        "updated_at": "2025-02-10T03:53:52"
+    },
+    {
+        "produto_id": 14,
+        "variacao": "Ciano claro",
+        "quantidade": 99,
+        "localizacao": "Sales",
+        "created_at": "2025-02-03T08:53:02",
+        "updated_at": "2025-05-05T09:28:43"
+    },
+    {
+        "produto_id": 15,
+        "variacao": "Branco",
+        "quantidade": 87,
+        "localizacao": "Monteiro das Pedras",
+        "created_at": "2025-03-15T06:25:08",
+        "updated_at": "2025-03-29T10:17:30"
+    }
+]

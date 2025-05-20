@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Cupom extends Model
+{
+    protected $table = 'cupoms';
+
+    protected $fillable = [
+        'codigo',
+        'tipo',
+        'valor',
+        'data_validade',
+        'ativo',
+    ];
+
+    public function pedidos(): HasMany
+    {
+        return $this->hasMany(Pedido::class, 'cupom_id');
+    }
+}

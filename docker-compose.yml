@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+    laravel_app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: laravel_app
+        ports:
+            - "8000:8000"
+            - "5174:5174"
+        volumes:
+            - .:/var/www
+        working_dir: /var/www
+        tty: true
+        stdin_open: true
+        depends_on:
+            - postgres_db
+
+    postgres_db:
+        image: postgres:17.4
+        container_name: postgres_db
+        restart: always
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_DB: laravel
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: admin
+
+volumes:
+    pgdata:
