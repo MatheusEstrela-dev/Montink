@@ -24,9 +24,11 @@ services:
         ports:
             - "5432:5432"
         environment:
-            POSTGRES_DB: laravel
+            POSTGRES_DB: erp
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: admin
+        volumes:
+            - pgdata:/var/lib/postgresql/data
 
 volumes:
     pgdata:

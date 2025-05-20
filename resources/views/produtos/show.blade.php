@@ -1,19 +1,45 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-xl mx-auto px-4 py-8">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Detalhes do Produto</h2>
+    <div class="max-w-3xl mx-auto mt-10 bg-white p-8 rounded shadow">
+        <h1 class="text-2xl font-bold text-gray-800 mb-4">Detalhes do Produto</h1>
 
-    <div class="bg-white p-6 rounded shadow">
-        <p><strong>Nome:</strong> {{ $produto->nome }}</p>
-        <p><strong>Descrição:</strong> {{ $produto->descricao }}</p>
-        <p><strong>Preço:</strong> R$ {{ number_format($produto->preco, 2, ',', '.') }}</p>
-        <p><strong>Categoria:</strong> {{ $produto->categoria }}</p>
-    </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700">
+            <div>
+                <strong>🆔 ID:</strong>
+                <p>{{ $produto->id }}</p>
+            </div>
+            <div>
+                <strong>📦 Nome:</strong>
+                <p>{{ $produto->nome }}</p>
+            </div>
+            <div>
+                <strong>💰 Preço:</strong>
+                <p>R$ {{ number_format($produto->preco, 2, ',', '.') }}</p>
+            </div>
+            <div>
+                <strong>🏷️ Categoria:</strong>
+                <p>{{ $produto->categoria }}</p>
+            </div>
+            <div class="col-span-1 sm:col-span-2">
+                <strong>📝 Descrição:</strong>
+                <p>{{ $produto->descricao }}</p>
+            </div>
+            <div class="col-span-1 sm:col-span-2">
+                <strong>📦 Estoque:</strong>
+                @if ($produto->estoque)
+                    <p>{{ $produto->estoque->quantidade }} unidades ({{ $produto->estoque->localizacao }})</p>
+                @else
+                    <p class="text-red-500">Sem informação de estoque</p>
+                @endif
+            </div>
+        </div>
 
-    <div class="mt-6 flex space-x-4">
-        <a href="{{ route('produtos.edit', $produto) }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Editar</a>
-        <a href="{{ route('produtos.index') }}" class="text-gray-600 hover:underline">Voltar</a>
+        <div class="mt-6 flex gap-4">
+            <a href="{{ route('            <?', $produto->id) }}"
+               class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded">✏️ Editar</a>
+            <a href="{{ route('produtos.index') }}"
+               class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded">⬅️ Voltar</a>
+        </div>
     </div>
-</div>
 @endsection

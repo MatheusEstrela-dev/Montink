@@ -26,7 +26,8 @@ class ProdutoController extends Controller
 
     public function show($id)
     {
-        return Produto::findOrFail($id);
+        $produto = Produto::with('estoque')->findOrFail($id);
+        return view('produtos.show', compact('produto'));
     }
 
     public function update(Request $request, $id)

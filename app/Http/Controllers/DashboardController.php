@@ -8,20 +8,22 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        $modulo = $request->query('modulo', 'pedidos'); // padrão: pedidos
+        $modulo = $request->query('modulo', 'pedidos');
 
-        // Simula dados de cada módulo
         $dados = [
-            'pedidos' => ['Fone Edifier', 'Monitor AOC', 'Mouse Razer', 'Teclado Redragon'],
-            'produtos' => ['Cadeira Gamer', 'Gabinete ATX', 'Processador Ryzen'],
-            'cupons' => ['CUPOM10', 'BLACKFRIDAY', 'WELCOME5'],
-            'estoque' => ['Estoque Central', 'Filial RJ', 'Filial SP'],
-            'usuarios' => ['Admin', 'Gerente', 'Vendedor']
+            'pedidos' => ['Fone Edifier', 'Monitor AOC'],
+            'produtos' => ['Gabinete Gamer', 'Cadeira'],
+            'cupons' => ['CUPOM10', 'DESCONTO20'],
+            'estoque' => ['Central', 'Filial SP'],
+            'usuarios' => ['Admin', 'Usuário comum'],
+            'carrinho' => [],
+            'cepmapa' => [],
         ];
 
-        return view('dashboard.index', [
-            'modulo' => $modulo,
-            'itens' => $dados[$modulo] ?? []
-        ]);
+        // ✅ Define $itens de forma segura SEMPRE
+        $itens = $dados[$modulo] ?? [];
+
+        // ✅ Envia as variáveis para a view
+        return view('dashboard.index', compact('modulo', 'itens'));
     }
 }
