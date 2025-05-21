@@ -1,29 +1,22 @@
 <?php
 
-namespace App\Models;
+namespace App\Http\Livewire\Produtos;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Livewire\Component;
+use App\Models\Produto;
 
-class Produto extends Model
+class ListaProduto extends Component
 {
-    protected $table = 'produtos';
+    public $busca = '';
 
-    protected $fillable = [
-        'nome',
-        'descricao',
-        'preco',
-        'categoria',
-    ];
-
-    public function estoque(): HasOne
+    public function render()
     {
-        return $this->hasOne(Estoque::class, 'produto_id');
-    }
+        $produtos = Produto::where('nome', 'ilike', '%' . $this->busca . '%')
+            ->orderBy('id', 'asc')
+            ->get();
 
-    public function pedidoProdutos(): HasMany
-    {
-        return $this->hasMany(PedidoProduto::class, 'produto_id');
+        return view('livewire.produtos.lista-produto', [
+            'produtos' => $produtos,
+        ]);
     }
 }

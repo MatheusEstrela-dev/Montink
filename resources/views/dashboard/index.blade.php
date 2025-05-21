@@ -14,7 +14,7 @@
 
             {{-- Renderização condicional para cada módulo --}}
             @if ($modulo === 'produtos')
-                @include('produtos.lista_produto')
+                <livewire:produtos-lista-produto />
 
             @elseif ($modulo === 'carrinho')
                 <h1 class="text-white text-2xl mb-4">🛒 Módulo do Carrinho</h1>
