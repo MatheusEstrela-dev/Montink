@@ -7,11 +7,17 @@ use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
+    /**
+     * Retorna todos os usuários.
+     */
     public function index()
     {
-        return Usuario::all();
+        return response()->json(Usuario::all());
     }
 
+    /**
+     * Cadastra um novo usuário.
+     */
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -22,14 +28,24 @@ class UsuarioController extends Controller
 
         $data['senha'] = bcrypt($data['senha']);
 
-        return Usuario::create($data);
+        $usuario = Usuario::create($data);
+
+        return response()->json($usuario, 201);
     }
 
+    /**
+     * Mostra um usuário específico.
+     */
     public function show($id)
     {
-        return Usuario::findOrFail($id);
+        $usuario = Usuario::findOrFail($id);
+
+        return response()->json($usuario);
     }
 
+    /**
+     * Atualiza um usuário.
+     */
     public function update(Request $request, $id)
     {
         $usuario = Usuario::findOrFail($id);
@@ -40,17 +56,24 @@ class UsuarioController extends Controller
             'senha' => 'nullable|string|min:6',
         ]);
 
-        if (isset($data['senha'])) {
+        if (!empty($data['senha'])) {
             $data['senha'] = bcrypt($data['senha']);
+        } else {
+            unset($data['senha']);
         }
 
         $usuario->update($data);
 
-        return $usuario;
+        return response()->json($usuario);
     }
 
+    /**
+     * Remove um usuário.
+     */
     public function destroy($id)
     {
-        return Usuario::destroy($id);
+        Usuario::destroy($id);
+
+        return response()->json(['message' => 'Usuário removido com sucesso.']);
     }
 }

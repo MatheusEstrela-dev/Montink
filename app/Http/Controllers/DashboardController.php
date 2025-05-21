@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Produto;
+use App\Models\Pedido;
+use App\Models\Cupom;
+use App\Models\Estoque;
+use App\Models\Usuario;
 
 class DashboardController extends Controller
 {
@@ -10,20 +15,19 @@ class DashboardController extends Controller
     {
         $modulo = $request->query('modulo', 'pedidos');
 
+        // Dados reais vindos do banco
         $dados = [
-            'pedidos' => ['Fone Edifier', 'Monitor AOC'],
+            'pedidos' => Pedido::all(),
             'produtos' => ['Gabinete Gamer', 'Cadeira'],
-            'cupons' => ['CUPOM10', 'DESCONTO20'],
-            'estoque' => ['Central', 'Filial SP'],
-            'usuarios' => ['Admin', 'Usuário comum'],
-            'carrinho' => [],
-            'cepmapa' => [],
+            'cupons' => Cupom::all(),
+            'estoque' => Estoque::all(),
+            'usuarios' => Usuario::all(), // ou Usuario::all()
+            'carrinho' => [], // pode vir de sessão no futuro
+            'cepmapa' => [],  // CEP usa lógica própria
         ];
 
-        // ✅ Define $itens de forma segura SEMPRE
         $itens = $dados[$modulo] ?? [];
 
-        // ✅ Envia as variáveis para a view
         return view('dashboard.index', compact('modulo', 'itens'));
     }
 }
