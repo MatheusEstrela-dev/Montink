@@ -19,7 +19,7 @@ class DashboardController extends Controller
         $dados = [
             'pedidos' => Pedido::all(),
             'produtos' => ['Gabinete Gamer', 'Cadeira'],
-            'cupons' => Cupom::all(),
+            'cupons' => \App\Models\Cupom::all(),
             'estoque' => Estoque::all(),
             'usuarios' => Usuario::all(), // ou Usuario::all()
             'carrinho' => [], // pode vir de sessão no futuro

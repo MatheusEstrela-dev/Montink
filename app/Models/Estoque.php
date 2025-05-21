@@ -9,11 +9,7 @@ class Estoque extends Model
 {
     protected $table = 'estoques';
 
-    protected $fillable = [
-        'produto_id',
-        'quantidade',
-        'localizacao',
-    ];
+    protected $fillable = ['produto_id', 'quantidade', 'localizacao'];
 
     public function produto(): BelongsTo
     {

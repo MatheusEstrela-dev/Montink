@@ -1,3 +1,4 @@
+
 <div x-data="{ termo: '', editando: null }">
     <h1 class="text-2xl font-bold text-purple-800 mb-6 flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -21,22 +22,22 @@
         </svg>
     </div>
 
-    {{-- Lista de usuários com edição --}}
+    {{-- Lista de usuários --}}
     <template x-for="usuario in {{ Js::from($itens) }}" :key="usuario.id">
         <div
             x-show="termo === '' || usuario.nome.toLowerCase().includes(termo.toLowerCase()) || usuario.email.toLowerCase().includes(termo.toLowerCase())"
             class="flex justify-between items-center bg-gray-800 text-white p-4 rounded shadow mb-3"
         >
             <div class="flex-1">
-                {{-- Form de edição --}}
+                {{-- Formulário de edição inline --}}
                 <template x-if="editando === usuario.id">
-                    <form :action="'/usuarios/' + usuario.id" method="POST" class="flex gap-2">
+                    <form :action="`/usuarios/${usuario.id}`" method="POST" class="flex gap-2">
                         @csrf
                         @method('PUT')
                         <input type="text" name="nome" :value="usuario.nome" class="bg-gray-700 text-white px-2 py-1 rounded w-1/3">
                         <input type="email" name="email" :value="usuario.email" class="bg-gray-700 text-white px-2 py-1 rounded w-1/3">
                         <input type="password" name="senha" placeholder="Nova senha" class="bg-gray-700 text-white px-2 py-1 rounded w-1/3">
-                        <button class="text-green-400 hover:text-green-500 text-xl">💾</button>
+                        <button class="text-green-400 hover:text-green-500 text-xl" title="Salvar">💾</button>
                     </form>
                 </template>
 
@@ -52,9 +53,9 @@
             {{-- Ações --}}
             <div class="flex gap-3 ml-4">
                 <button @click="editando = (editando === usuario.id ? null : usuario.id)"
-                    class="text-orange-400 hover:text-orange-500 text-xl">✏️</button>
+                        class="text-orange-400 hover:text-orange-500 text-xl">✏️</button>
 
-                <form :action="'/usuarios/' + usuario.id" method="POST">
+                <form :action="`/usuarios/${usuario.id}`" method="POST">
                     @csrf
                     @method('DELETE')
                     <button class="text-pink-400 hover:text-pink-500 text-xl" title="Excluir">❌</button>

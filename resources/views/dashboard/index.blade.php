@@ -30,6 +30,9 @@
             @elseif ($modulo === 'usuarios')
                 @include('usuarios.index')
 
+            @elseif ($modulo === 'cupons')
+                @include('cupom.cupons', ['cupons' => $itens])
+
             @else
                 {{-- Módulo genérico: renderiza itens recebidos --}}
                 <div x-data="{ termo: '' }">
