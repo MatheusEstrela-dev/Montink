@@ -22,7 +22,10 @@ class DashboardController extends Controller
                 ->paginate(9),
             'produtos' => ['Gabinete Gamer', 'Cadeira'],
             'cupons' => \App\Models\Cupom::all(),
-            'estoque' => \App\Models\Estoque::all(),
+            'estoques' => \App\Models\Estoque::with('produto')
+                ->when($busca, fn($q) => $q->where('id', 'like', "%$busca%"))
+                ->orderBy('id', 'asc')
+                ->paginate(9),
             'usuarios' => \App\Models\Usuario::all(),
             'carrinho' => [],
             'cepmapa' => [],

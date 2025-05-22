@@ -22,10 +22,6 @@
                            {{ $moduloAtual === $modulo
                                ? 'bg-blue-500 text-white shadow-md'
                                : 'bg-gray-100 text-gray-700 hover:bg-blue-100' }}">
-                    @if ($moduloAtual === $modulo)
-                        <div class="absolute left-0 top-0 h-full w-1 bg-blue-700 rounded-r"></div>
-                    @endif
-
                     <span class="text-xl">{{ $icon }}</span>
                     <span class="font-semibold">{{ $label }}</span>
                 </button>

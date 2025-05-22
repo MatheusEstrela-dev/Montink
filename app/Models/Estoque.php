@@ -11,7 +11,7 @@ class Estoque extends Model
 
     protected $fillable = ['produto_id', 'quantidade', 'localizacao'];
 
-    public function produto(): BelongsTo
+    public function produto()
     {
         return $this->belongsTo(Produto::class, 'produto_id');
     }
