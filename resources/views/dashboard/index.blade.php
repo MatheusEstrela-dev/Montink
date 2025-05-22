@@ -7,20 +7,11 @@
         {{-- Conteúdo central --}}
         <main class="flex-1 p-8 overflow-y-auto">
             <div class="max-w-5xl mx-auto">
-                {{-- Alerta do módulo ativo --}}
-                <div class="bg-red-200 text-red-800 text-sm text-center py-2 mb-4 rounded shadow">
-                    Módulo atual: <strong>{{ ucfirst($modulo) }}</strong>
-                </div>
+
 
                 {{-- Renderização por módulo --}}
                 @if ($modulo === 'produtos')
                     @include('produtos.index')
-
-                @elseif ($modulo === 'carrinho')
-                    <h1 class="text-gray-800 text-2xl mb-4">🛒 Módulo do Carrinho</h1>
-                    <div class="bg-white p-4 rounded shadow text-gray-800">
-                        [Conteúdo do carrinho será renderizado aqui]
-                    </div>
 
                 @elseif ($modulo === 'cepmapa')
                     @include('dashboard.cep')
@@ -36,6 +27,10 @@
 
                 @elseif($modulo === 'estoques')
                      @include('estoques.index', ['itens' => $itens])
+
+                 @elseif ($modulo === 'carrinho')
+                         @include('carrinho.index', ['itens' => $itens])
+
 
                 @else
                     <div x-data="{ termo: '' }">

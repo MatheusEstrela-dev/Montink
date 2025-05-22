@@ -34,9 +34,16 @@
   {{-- Rodapé fixo da sidebar --}}
   <div class="p-4 bg-gray-800 text-gray-300 flex flex-col items-center gap-3">
     {{-- Avatar --}}
-    <div class="w-12 h-12 rounded-full bg-gray-600 flex items-center justify-center text-white text-xl">
-      👤
-    </div>
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-blue-500 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-6 h-6 text-white"
+            fill="currentColor"
+            viewBox="0 0 20 20">
+            <path d="M10 2a5 5 0 100 10 5 5 0 000-10zM2 18a8
+                    8 0 0116 0H2z"/>
+        </svg>
+        </div>
+
     {{-- Logout --}}
     <form method="POST" action="{{ route('logout') }}" class="w-full">
       @csrf

@@ -10,6 +10,8 @@ use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\PedidoProdutoController;
 use App\Http\Controllers\CepController;
+use App\Http\Controllers\CarrinhoController;
+use App\Http\Controllers\CartController;
 
 // Login (rota pública)
 Route::get('/',                 [LoginController::class, 'showLoginForm'])->name('login');
@@ -36,4 +38,10 @@ Route::middleware(['auth', 'web'])->group(function () {
         ->name('pedido-produtos.por-pedido');
     Route::resource('pedido-produtos', PedidoProdutoController::class)
         ->only(['store', 'update', 'destroy']);
+
+    // Rotas do carrinho
+    Route::post('/carrinho/adicionar',  [App\Http\Controllers\CartController::class, 'adicionar'])
+        ->name('carrinho.adicionar');
+    Route::post('/carrinho/atualizar',  [CartController::class, 'atualizar'])->name('carrinho.atualizar');
+    Route::post('/carrinho/remover',    [CartController::class, 'remover'])->name('carrinho.remover');
 });
