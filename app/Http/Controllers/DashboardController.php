@@ -25,7 +25,7 @@ class DashboardController extends Controller
 
             'cupons' => Cupom::paginate(5),
 
-            'estoques' => Estoque::with('produto')
+            'estoque' => Estoque::with('produto')
                 ->when($busca, fn($q) => $q->where('localizacao', 'ilike', "%$busca%"))
                 ->orderBy('id')->paginate(5),
 

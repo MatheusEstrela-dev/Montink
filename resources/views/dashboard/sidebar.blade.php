@@ -8,7 +8,7 @@
                     'pedidos' => ['📦', 'Pedidos'],
                     'produtos' => ['🎁', 'Produtos'],
                     'cupons' => ['🛍️', 'Cupons'],
-                    'estoque' => ['🏷️', 'Estoque'],
+                    'estoques' => ['🏷️', 'Estoque'],
                     'usuarios' => ['👤', 'Usuários'],
                     'carrinho' => ['🛒', 'Carrinho'],
                     'cepmapa' => ['🗺️', 'Verificar CEP'],
