@@ -27,7 +27,8 @@ Route::middleware(['web'])->group(function () {
 
     // Recursos tradicionais
     Route::resource('usuarios', UsuarioController::class);
-    Route::resource('estoques', EstoqueController::class);
+    Route::resource('estoques', EstoqueController::class)
+        ->only(['index', 'store', 'update', 'destroy']);
     Route::resource('cupoms', CupomController::class);
     Route::resource('pedidos', PedidoController::class);
     Route::resource('produtos', ProdutoController::class);
@@ -36,9 +37,5 @@ Route::middleware(['web'])->group(function () {
     Route::get('/pedido-produtos/pedido/{pedidoId}', [PedidoProdutoController::class, 'index'])->name('pedido-produtos.por-pedido');
 
     // Resource limitado para adicionar, atualizar e remover produtos de pedidos
-    Route::resource('pedido-produtos', PedidoProdutoController::class)->only([
-        'store',
-        'update',
-        'destroy'
-    ]);
+    Route::resource('pedido-produtos', PedidoProdutoController::class)->only(['store', 'update', 'destroy']);
 });
