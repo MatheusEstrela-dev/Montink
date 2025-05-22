@@ -2,54 +2,61 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PedidoProduto;
 use Illuminate\Http\Request;
+use App\Models\PedidoProduto;
+use App\Models\Pedido;
+use App\Models\Produto;
 
 class PedidoProdutoController extends Controller
 {
-    public function index()
+    // Listar itens de um pedido
+    public function index($pedidoId)
     {
-        return PedidoProduto::with(['pedido', 'produto'])->get();
+        $itens = PedidoProduto::with('produto')
+            ->where('pedido_id', $pedidoId)
+            ->get();
+
+        return response()->json($itens);
     }
 
+    // Adicionar item ao pedido
     public function store(Request $request)
     {
         $data = $request->validate([
             'pedido_id' => 'required|exists:pedidos,id',
             'produto_id' => 'required|exists:produtos,id',
             'quantidade' => 'required|integer|min:1',
-            'preco_unitario' => 'required|numeric|min:0',
         ]);
 
-        return PedidoProduto::create($data);
+        $produto = Produto::findOrFail($data['produto_id']);
+
+        $data['preco_unitario'] = $produto->preco;
+
+        $item = PedidoProduto::create($data);
+
+        return response()->json($item->load('produto'), 201);
     }
 
-    public function show($id)
-    {
-        return PedidoProduto::with(['pedido', 'produto'])->findOrFail($id);
-    }
-
+    // Atualizar quantidade
     public function update(Request $request, $id)
     {
-        $registro = PedidoProduto::findOrFail($id);
+        $item = PedidoProduto::findOrFail($id);
 
         $data = $request->validate([
-            'pedido_id' => 'sometimes|exists:pedidos,id',
-            'produto_id' => 'sometimes|exists:produtos,id',
-            'quantidade' => 'sometimes|integer|min:1',
-            'preco_unitario' => 'sometimes|numeric|min:0',
+            'quantidade' => 'required|integer|min:1',
         ]);
 
-        $registro->update($data);
+        $item->update($data);
 
-        return $registro;
+        return response()->json($item);
     }
 
+    // Remover item do pedido
     public function destroy($id)
     {
-        $registro = PedidoProduto::findOrFail($id);
-        $registro->delete();
+        $item = PedidoProduto::findOrFail($id);
+        $item->delete();
 
-        return response()->json(['mensagem' => 'Item do pedido removido com sucesso.']);
+        return response()->json(['mensagem' => 'Item removido com sucesso.']);
     }
 }

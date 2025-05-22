@@ -10,13 +10,12 @@ use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\PedidoProdutoController;
 use App\Http\Controllers\CepController;
 
-
 // Login
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.perform');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-//  Rotas protegidas por sessão
+// Rotas protegidas por sessão
 Route::middleware(['web'])->group(function () {
 
     // Dashboard principal com Livewire renderizando dentro
@@ -30,5 +29,14 @@ Route::middleware(['web'])->group(function () {
     Route::resource('estoques', EstoqueController::class);
     Route::resource('cupoms', CupomController::class);
     Route::resource('pedidos', PedidoController::class);
-    Route::resource('pedido-produtos', PedidoProdutoController::class);
+
+    // Rota customizada para listar produtos de um pedido específico
+    Route::get('/pedido-produtos/pedido/{pedidoId}', [PedidoProdutoController::class, 'index'])->name('pedido-produtos.por-pedido');
+
+    // Resource limitado para adicionar, atualizar e remover produtos de pedidos
+    Route::resource('pedido-produtos', PedidoProdutoController::class)->only([
+        'store',
+        'update',
+        'destroy'
+    ]);
 });

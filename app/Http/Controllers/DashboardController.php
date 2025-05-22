@@ -17,22 +17,26 @@ class DashboardController extends Controller
         $busca = $request->query('busca');
 
         $dados = [
-            'pedidos' => \App\Models\Pedido::when($busca, fn($q) => $q->where('id', 'like', "%$busca%"))
-                ->orderBy('id', 'asc')
-                ->paginate(9),
-            'produtos' => ['Gabinete Gamer', 'Cadeira'],
-            'cupons' => \App\Models\Cupom::all(),
-            'estoques' => \App\Models\Estoque::with('produto')
+            'pedidos' => Pedido::when($busca, fn($q) => $q->where('id', 'like', "%$busca%"))
+                ->orderBy('id')->paginate(9),
+
+            'produtos' => Produto::when($busca, fn($q) => $q->where('nome', 'ilike', "%$busca%"))
+                ->orderBy('id')->paginate(5),
+
+            'cupons' => Cupom::all(),
+
+            'estoques' => Estoque::with('produto')
                 ->when($busca, fn($q) => $q->where('id', 'like', "%$busca%"))
-                ->orderBy('id', 'asc')
-                ->paginate(9),
-            'usuarios' => \App\Models\Usuario::all(),
+                ->orderBy('id')->paginate(9),
+
+            'usuarios' => Usuario::all(),
             'carrinho' => [],
             'cepmapa' => [],
         ];
 
         $itens = $dados[$modulo] ?? [];
 
+        // ⚠️ Remova os dd()s para evitar travamento da página
         return view('dashboard.index', compact('modulo', 'itens'));
     }
 }

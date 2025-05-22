@@ -36,6 +36,9 @@
 
                 @elseif ($modulo === 'estoque')
                     @includeIf('estoques.index')
+                    <div x-data="{ dados: {{ Js::from($itens instanceof \Illuminate\Pagination\LengthAwarePaginator ? $itens->items() : $itens) }} }">
+    <pre class="text-white text-sm bg-black p-2 overflow-x-auto" x-text="JSON.stringify(dados, null, 2)"></pre>
+</div>
 
                 @else
                     <div x-data="{ termo: '' }">
