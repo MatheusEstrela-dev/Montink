@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Usuario;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
     public function index()
     {
-        return view('usuarios.index', [
-            'itens' => Usuario::all()
-        ]);
+        return Usuario::all();
     }
 
     public function store(Request $request)
@@ -20,11 +17,17 @@ class UsuarioController extends Controller
         $data = $request->validate([
             'nome' => 'required|string|max:255',
             'email' => 'required|email|unique:usuarios,email',
+            'senha' => 'required|string|min:6',
         ]);
 
-        Usuario::create($data);
+        $data['senha'] = bcrypt($data['senha']);
 
-        return redirect()->back();
+        return Usuario::create($data);
+    }
+
+    public function show($id)
+    {
+        return Usuario::findOrFail($id);
     }
 
     public function update(Request $request, $id)
@@ -32,27 +35,27 @@ class UsuarioController extends Controller
         $usuario = Usuario::findOrFail($id);
 
         $data = $request->validate([
-            'nome' => 'required|string|max:255',
-            'email' => 'required|email|unique:usuarios,email,' . $id,
+            'nome' => 'sometimes|string|max:255',
+            'email' => 'sometimes|email|unique:usuarios,email,' . $id,
             'senha' => 'nullable|string|min:4',
         ]);
 
-        // Criptografa a senha se fornecida
         if (!empty($data['senha'])) {
-            $data['senha'] = Hash::make($data['senha']);
+            $data['senha'] = bcrypt($data['senha']);
         } else {
-            unset($data['senha']); // Evita sobrescrever com NULL
+            unset($data['senha']);
         }
 
         $usuario->update($data);
 
-        return redirect()->back()->with('success', 'Usuário atualizado com sucesso!');
+        return response()->json(['success' => true]);
     }
 
     public function destroy($id)
     {
-        Usuario::destroy($id);
+        $usuario = Usuario::findOrFail($id);
+        $usuario->delete();
 
-        return redirect()->back();
+        return response()->json(['success' => true]);
     }
 }

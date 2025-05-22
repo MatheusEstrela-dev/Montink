@@ -23,20 +23,20 @@ class DashboardController extends Controller
             'produtos' => Produto::when($busca, fn($q) => $q->where('nome', 'ilike', "%$busca%"))
                 ->orderBy('id')->paginate(5),
 
-            'cupons' => Cupom::all(),
+            'cupons' => Cupom::paginate(5),
 
             'estoques' => Estoque::with('produto')
-                ->when($busca, fn($q) => $q->where('id', 'like', "%$busca%"))
-                ->orderBy('id')->paginate(9),
+                ->when($busca, fn($q) => $q->where('localizacao', 'ilike', "%$busca%"))
+                ->orderBy('id')->paginate(5),
 
-            'usuarios' => Usuario::all(),
+            'usuarios' => Usuario::paginate(5),
             'carrinho' => [],
             'cepmapa' => [],
         ];
 
         $itens = $dados[$modulo] ?? [];
 
-        // ⚠️ Remova os dd()s para evitar travamento da página
+
         return view('dashboard.index', compact('modulo', 'itens'));
     }
 }

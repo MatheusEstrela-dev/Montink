@@ -7,6 +7,7 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\EstoqueController;
 use App\Http\Controllers\CupomController;
 use App\Http\Controllers\PedidoController;
+use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\PedidoProdutoController;
 use App\Http\Controllers\CepController;
 
@@ -29,6 +30,7 @@ Route::middleware(['web'])->group(function () {
     Route::resource('estoques', EstoqueController::class);
     Route::resource('cupoms', CupomController::class);
     Route::resource('pedidos', PedidoController::class);
+    Route::resource('produtos', ProdutoController::class);
 
     // Rota customizada para listar produtos de um pedido específico
     Route::get('/pedido-produtos/pedido/{pedidoId}', [PedidoProdutoController::class, 'index'])->name('pedido-produtos.por-pedido');

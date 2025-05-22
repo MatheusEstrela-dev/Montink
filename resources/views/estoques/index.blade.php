@@ -1,11 +1,8 @@
-<div>
-    <h2>Debug Estoques:</h2>
-    <pre class="text-white bg-black p-4 rounded">{{ json_encode($itens, JSON_PRETTY_PRINT) }}</pre>
-</div>
+<pre class="text-white bg-black p-4 rounded">{{ json_encode($itens, JSON_PRETTY_PRINT) }}</pre>
 
 <div x-data="{
     termo: '',
-    todosEstoques: {{ Js::from($itens) }},
+    todosEstoques: {{ Js::from($itens instanceof \Illuminate\Pagination\AbstractPaginator ? $itens->items() : $itens) }},
     get estoques() {
         if (this.termo === '') return this.todosEstoques;
         return this.todosEstoques.filter(e =>
@@ -15,26 +12,23 @@
     }
 }" class="space-y-4">
 
-    {{-- Campo de busca --}}
-    <div class="flex items-center bg-white shadow rounded px-4 py-2">
-        <input
-            x-model="termo"
-            type="text"
-            placeholder="Buscar por produto ou local..."
-            class="flex-1 bg-transparent text-gray-800 placeholder-gray-400 focus:outline-none"
-        />
-    </div>
+    <input type="text" x-model="termo" placeholder="Buscar por produto ou local..." class="w-full px-4 py-2 rounded text-black" />
 
-    {{-- Lista de estoques --}}
     <template x-for="estoque in estoques" :key="estoque.id">
         <div class="bg-white p-4 rounded shadow">
-            <h2 class="text-lg font-semibold" x-text="estoque.produto?.nome ?? 'Produto não encontrado'"></h2>
-            <p class="text-gray-700">Quantidade: <span x-text="estoque.quantidade"></span></p>
-            <p class="text-gray-500">Localização: <span x-text="estoque.localizacao"></span></p>
+            <p class="font-bold text-lg text-gray-800" x-text="estoque.produto?.nome ?? 'Produto não encontrado'"></p>
+            <p class="text-sm text-gray-600" x-text="'Quantidade: ' + estoque.quantidade"></p>
+            <p class="text-sm text-gray-400" x-text="'Localização: ' + (estoque.localizacao ?? '-')"></p>
         </div>
     </template>
 
     <template x-if="estoques.length === 0">
-        <p class="text-gray-500 italic">Nenhum estoque encontrado.</p>
+        <p class="text-gray-400 italic">Nenhum estoque encontrado.</p>
     </template>
+
+    <div class="mt-4">
+        {{ $itens instanceof \Illuminate\Pagination\AbstractPaginator
+            ? $itens->appends(request()->except('page'))->onEachSide(1)->links('pagination::tailwind')
+            : '' }}
+    </div>
 </div>

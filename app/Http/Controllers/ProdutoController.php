@@ -35,22 +35,20 @@ class ProdutoController extends Controller
         $produto = Produto::findOrFail($id);
 
         $data = $request->validate([
-            'nome' => 'sometimes|string|max:255',
-            'descricao' => 'nullable|string',
-            'preco' => 'sometimes|numeric|min:0',
+            'nome' => 'required|string|max:255',
             'categoria' => 'nullable|string|max:255',
+            'preco' => 'required|numeric',
         ]);
 
         $produto->update($data);
 
-        return $produto;
+        return response()->json($produto);
     }
 
     public function destroy($id)
     {
-        $produto = Produto::findOrFail($id);
-        $produto->delete();
+        Produto::findOrFail($id)->delete();
 
-        return response()->json(['mensagem' => 'Produto removido com sucesso.']);
+        return response()->json(['mensagem' => 'Produto deletado com sucesso.']);
     }
 }

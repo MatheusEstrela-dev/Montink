@@ -95,3 +95,26 @@
     </div>
 </div>
 @endsection
+
+<script>
+    function atualizarProduto(id, produto) {
+        const response = await fetch(`{{ url('/produtos') }}/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            },
+            body: JSON.stringify({
+                nome: produto.nome,
+                categoria: produto.categoria,
+                preco: produto.preco
+            })
+        });
+        .then(res => {
+            if (!res.ok) throw new Error('Erro ao salvar');
+            this.editando = null;
+            alert('Produto atualizado!');
+        })
+        .catch(() => alert('Erro ao salvar.'));
+    }
+</script>

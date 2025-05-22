@@ -1,75 +1,94 @@
-{{-- resources/views/usuarios/index.blade.php --}}
 <div x-data="{
     termo: '',
     editando: null,
-    todosUsuarios: {{ Js::from($itens) }},
-    get usuarios() {
-        return this.todosUsuarios.filter(usuario =>
-            usuario.email.toLowerCase() !== 'admin@montink.com' &&
-            (this.termo === '' || usuario.nome.toLowerCase().includes(this.termo.toLowerCase()) || usuario.email.toLowerCase().includes(this.termo.toLowerCase()))
-        );
+    todosUsuarios: {{ Js::from($itens->items()) }},
+    get usuariosFiltrados() {
+        return this.todosUsuarios
+            .filter(u => u.email !== 'admin@montink.com') // Oculta admin
+            .filter(u =>
+                (u.nome ?? '').toLowerCase().includes(this.termo.toLowerCase()) ||
+                (u.email ?? '').toLowerCase().includes(this.termo.toLowerCase())
+            );
+    },
+    salvar(id) {
+        const usuario = this.todosUsuarios.find(u => u.id === id);
+        fetch(`/usuarios/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            },
+            body: JSON.stringify({
+                nome: usuario.nome,
+                email: usuario.email,
+                senha: usuario.senha ?? ''
+            })
+        })
+        .then(res => {
+            if (!res.ok) throw new Error('Erro ao salvar');
+            this.editando = null;
+            alert('Usuário atualizado!');
+        })
+        .catch(() => alert('Erro ao salvar.'));
+    },
+    excluir(id) {
+        if (!confirm('Tem certeza que deseja excluir este usuário?')) return;
+        fetch(`/usuarios/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            }
+        })
+        .then(res => {
+            if (!res.ok) throw new Error('Erro ao excluir');
+            this.todosUsuarios = this.todosUsuarios.filter(u => u.id !== id);
+            alert('Usuário excluído!');
+        })
+        .catch(() => alert('Erro ao excluir.'));
     }
-}">
-    <h1 class="text-2xl font-bold text-purple-800 mb-6 flex items-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 15c3.314 0 6.314 1.166 8.879 3.096M15 10a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
-        Lista de Usuários
-    </h1>
+}" class="space-y-4">
 
     {{-- Campo de busca --}}
-    <div class="flex items-center bg-white shadow rounded px-4 py-2 mb-6 w-full max-w-md">
-        <input
-            x-model="termo"
-            type="text"
-            placeholder="Buscar por nome ou e-mail..."
-            class="flex-1 bg-transparent text-gray-800 placeholder-gray-400 focus:outline-none"
-        />
-        <svg class="ml-2 text-gray-500 w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
-             viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1010.5 18a7.5 7.5 0 006.15-3.35z" />
-        </svg>
-    </div>
+    <input
+        x-model="termo"
+        type="text"
+        placeholder="Buscar por nome ou e-mail..."
+        class="w-full px-4 py-2 rounded shadow text-black"
+    />
 
     {{-- Lista de usuários --}}
-    <template x-for="usuario in usuarios" :key="usuario.id">
-        <div
-            class="flex justify-between items-center bg-gray-800 text-white p-4 rounded shadow mb-3"
-        >
-            <div class="flex-1">
-                {{-- Formulário de edição inline --}}
-                <template x-if="editando === usuario.id">
-                    <form :action="`/usuarios/${usuario.id}`" method="POST" class="flex gap-2">
-                        @csrf
-                        @method('PUT')
-                        <input type="text" name="nome" :value="usuario.nome" class="bg-gray-700 text-white px-2 py-1 rounded w-1/3">
-                        <input type="email" name="email" :value="usuario.email" class="bg-gray-700 text-white px-2 py-1 rounded w-1/3">
-                        <input type="password" name="senha" placeholder="Nova senha" class="bg-gray-700 text-white px-2 py-1 rounded w-1/3">
-                        <button class="text-green-400 hover:text-green-500 text-xl" title="Salvar">💾</button>
-                    </form>
-                </template>
-
-                {{-- Visualização padrão --}}
+    <template x-for="usuario in usuariosFiltrados" :key="usuario.id">
+        <div class="flex justify-between items-center bg-white p-4 rounded shadow">
+            <div>
                 <template x-if="editando !== usuario.id">
                     <div>
-                        <p class="font-semibold" x-text="usuario.nome"></p>
-                        <p class="text-sm text-gray-300" x-text="usuario.email"></p>
+                        <p class="font-bold text-gray-800" x-text="usuario.nome"></p>
+                        <p class="text-sm text-gray-500" x-text="usuario.email"></p>
+                    </div>
+                </template>
+                <template x-if="editando === usuario.id">
+                    <div class="space-y-1">
+                        <input x-model="usuario.nome" class="w-full px-2 py-1 border rounded" />
+                        <input x-model="usuario.email" class="w-full px-2 py-1 border rounded" />
+                        <input x-model="usuario.senha" type="password" class="w-full px-2 py-1 border rounded" placeholder="Nova senha" />
                     </div>
                 </template>
             </div>
 
-            {{-- Ações --}}
-            <div class="flex gap-3 ml-4">
-                <button @click="editando = (editando === usuario.id ? null : usuario.id)"
-                        class="text-orange-400 hover:text-orange-500 text-xl">✏️</button>
-
-                <form :action="`/usuarios/${usuario.id}`" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button class="text-pink-400 hover:text-pink-500 text-xl" title="Excluir">❌</button>
-                </form>
+            <div class="flex items-center space-x-2">
+                <template x-if="editando !== usuario.id">
+                    <button @click="editando = usuario.id" class="text-orange-600 hover:text-orange-800 text-xl">✏</button>
+                </template>
+                <template x-if="editando === usuario.id">
+                    <button @click="salvar(usuario.id)" class="text-green-600 hover:text-green-800 text-xl">💾</button>
+                </template>
+                <button @click="excluir(usuario.id)" class="text-pink-600 hover:text-pink-800 text-xl">❌</button>
             </div>
         </div>
     </template>
+
+    {{-- Paginação --}}
+    <div class="mt-4 flex justify-end">
+       {{ $itens->appends(['modulo' => $modulo])->links('pagination::tailwind') }}
+    </div>
 </div>
