@@ -1,5 +1,15 @@
-
-<div x-data="{ termo: '', editando: null }">
+{{-- resources/views/usuarios/index.blade.php --}}
+<div x-data="{
+    termo: '',
+    editando: null,
+    todosUsuarios: {{ Js::from($itens) }},
+    get usuarios() {
+        return this.todosUsuarios.filter(usuario =>
+            usuario.email.toLowerCase() !== 'admin@montink.com' &&
+            (this.termo === '' || usuario.nome.toLowerCase().includes(this.termo.toLowerCase()) || usuario.email.toLowerCase().includes(this.termo.toLowerCase()))
+        );
+    }
+}">
     <h1 class="text-2xl font-bold text-purple-800 mb-6 flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 15c3.314 0 6.314 1.166 8.879 3.096M15 10a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -23,9 +33,8 @@
     </div>
 
     {{-- Lista de usuários --}}
-    <template x-for="usuario in {{ Js::from($itens) }}" :key="usuario.id">
+    <template x-for="usuario in usuarios" :key="usuario.id">
         <div
-            x-show="termo === '' || usuario.nome.toLowerCase().includes(termo.toLowerCase()) || usuario.email.toLowerCase().includes(termo.toLowerCase())"
             class="flex justify-between items-center bg-gray-800 text-white p-4 rounded shadow mb-3"
         >
             <div class="flex-1">

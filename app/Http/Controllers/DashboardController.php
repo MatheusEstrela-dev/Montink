@@ -14,16 +14,18 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         $modulo = $request->query('modulo', 'pedidos');
+        $busca = $request->query('busca');
 
-        // Dados reais vindos do banco
         $dados = [
-            'pedidos' => Pedido::all(),
+            'pedidos' => \App\Models\Pedido::when($busca, fn($q) => $q->where('id', 'like', "%$busca%"))
+                ->orderBy('id', 'asc')
+                ->paginate(9),
             'produtos' => ['Gabinete Gamer', 'Cadeira'],
             'cupons' => \App\Models\Cupom::all(),
-            'estoque' => Estoque::all(),
-            'usuarios' => Usuario::all(), // ou Usuario::all()
-            'carrinho' => [], // pode vir de sessão no futuro
-            'cepmapa' => [],  // CEP usa lógica própria
+            'estoque' => \App\Models\Estoque::all(),
+            'usuarios' => \App\Models\Usuario::all(),
+            'carrinho' => [],
+            'cepmapa' => [],
         ];
 
         $itens = $dados[$modulo] ?? [];
