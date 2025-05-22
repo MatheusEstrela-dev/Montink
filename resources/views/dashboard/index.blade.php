@@ -34,8 +34,8 @@
                 @elseif ($modulo === 'pedidos')
                     @include('pedidos.index')
 
-                @elseif ($modulo === 'estoques')
-                    @includeIf('estoques.index')
+                @elseif($modulo === 'estoques')
+                     @include('estoques.index', ['itens' => $itens])
 
                 @else
                     <div x-data="{ termo: '' }">

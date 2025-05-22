@@ -25,7 +25,7 @@ class DashboardController extends Controller
 
             'cupons' => Cupom::paginate(5),
 
-            'estoque' => Estoque::with('produto')
+            'estoques' => Estoque::with('produto')
                 ->when($busca, fn($q) => $q->where('localizacao', 'ilike', "%$busca%"))
                 ->orderBy('id')->paginate(5),
 
@@ -35,8 +35,6 @@ class DashboardController extends Controller
         ];
 
         $itens = $dados[$modulo] ?? [];
-
-
         return view('dashboard.index', compact('modulo', 'itens'));
     }
 }
