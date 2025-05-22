@@ -1,35 +1,72 @@
-<div class="bg-white rounded shadow p-6 max-w-md mx-auto" x-data="{ cep: '', buscando: false, resultado: null }">
-    <label for="cep" class="block text-gray-700 mb-2 font-medium">CEP</label>
-    <input type="text" id="cep" maxlength="9"
-           class="w-full p-2 border rounded mb-4 text-black" placeholder="Digite o CEP"
-           x-model="cep">
 
+<div class="max-w-md mx-auto" x-data="cepMapa()" x-init="init()">
+  <div class="bg-white p-6 rounded shadow space-y-4">
+    <label class="block font-semibold">CEP</label>
+    <input
+      x-model="cep"
+      type="text"
+      placeholder="Digite o CEP"
+      class="w-full px-3 py-2 border rounded"
+    />
     <button
-        @click="buscarCEP"
-        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-    >
-        Buscar
-    </button>
+      @click="buscar()"
+      class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+    >Buscar</button>
 
-    <div x-show="buscando" class="animate-spin w-6 h-6 border-4 border-blue-300 border-t-white rounded-full ml-2"></div>
+    <template x-if="endereco">
+      <div class="text-gray-700 space-y-1">
+        <p><strong>Logradouro:</strong> <span x-text="endereco.logradouro"></span></p>
+        <p><strong>Bairro:</strong>     <span x-text="endereco.bairro"></span></p>
+        <p><strong>Cidade:</strong>     <span x-text="endereco.localidade"></span> /
+                                         <span x-text="endereco.uf"></span></p>
+      </div>
+    </template>
+  </div>
 
-    <div class="mt-4" x-show="resultado">
-        <p><strong>Logradouro:</strong> <span x-text="resultado.logradouro"></span></p>
-        <p><strong>Bairro:</strong> <span x-text="resultado.bairro"></span></p>
-        <p><strong>Cidade:</strong> <span x-text="resultado.localidade"></span></p>
-        <p><strong>UF:</strong> <span x-text="resultado.uf"></span></p>
-    </div>
-
-    <script>
-        function buscarCEP() {
-            this.buscando = true;
-            fetch(`https://viacep.com.br/ws/${this.cep}/json/`)
-                .then(res => res.json())
-                .then(data => {
-                    this.resultado = data;
-                    this.buscando = false;
-                })
-                .catch(() => this.buscando = false);
-        }
-    </script>
+  {{-- Mapa Leaflet --}}
+  <div id="map" class="mt-4 rounded shadow" style="height:400px;"></div>
 </div>
+
+{{-- CSS/JS do Leaflet --}}
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet/dist/leaflet.css"
+/>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+function cepMapa() {
+  return {
+    cep: '',
+    endereco: null,
+    map: null,
+    marker: null,
+
+    init() {
+      // inicia o mapa centrado no Brasil
+      this.map = L.map('map').setView([-15.7801, -47.9292], 4);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap'
+      }).addTo(this.map);
+    },
+
+    async buscar() {
+      if (!this.cep) return alert('Informe um CEP!');
+      const res = await fetch(`/consulta-cep/${this.cep}`);
+      if (!res.ok) return alert('CEP não encontrado');
+      this.endereco = await res.json();
+
+      // reposiciona mapa e marcador
+      const lat = parseFloat(this.endereco.lat);
+      const lon = parseFloat(this.endereco.lon);
+      this.map.setView([lat, lon], 15);
+
+      if (this.marker) this.map.removeLayer(this.marker);
+      this.marker = L.marker([lat, lon])
+        .addTo(this.map)
+        .bindPopup(`${this.endereco.logradouro}, ${this.endereco.localidade}`)
+        .openPopup();
+    }
+  }
+}
+</script>

@@ -14,27 +14,30 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         $modulo = $request->query('modulo', 'pedidos');
-        $busca = $request->query('busca');
+        $busca  = $request->query('busca');
 
         $dados = [
-            'pedidos' => Pedido::when($busca, fn($q) => $q->where('id', 'like', "%$busca%"))
-                ->orderBy('id')->paginate(9),
-
+            'pedidos'  => Pedido::when($busca, fn($q) => $q->where('id', 'like', "%$busca%"))
+                ->orderBy('id')->paginate(10),
             'produtos' => Produto::when($busca, fn($q) => $q->where('nome', 'ilike', "%$busca%"))
                 ->orderBy('id')->paginate(5),
-
-            'cupons' => Cupom::paginate(5),
+            'cupons'   => Cupom::paginate(5),
 
             'estoques' => Estoque::with('produto')
                 ->when($busca, fn($q) => $q->where('localizacao', 'ilike', "%$busca%"))
-                ->orderBy('id')->paginate(5),
+                ->orderBy('id')->paginate(6),
 
             'usuarios' => Usuario::paginate(5),
             'carrinho' => [],
-            'cepmapa' => [],
+            'cepmapa'  => [],
         ];
 
+        $todosProdutos = Produto::select('id', 'nome')
+            ->orderBy('nome')
+            ->get();
+
         $itens = $dados[$modulo] ?? [];
-        return view('dashboard.index', compact('modulo', 'itens'));
+
+        return view('dashboard.index', compact('modulo', 'itens', 'todosProdutos'));
     }
 }
