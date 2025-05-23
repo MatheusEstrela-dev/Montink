@@ -15,10 +15,12 @@
 
   {{-- Novo Produto --}}
   <div class="bg-gray-800 p-4 rounded flex space-x-2 text-gray-200">
-    <input x-model="novo.nome"      type="text"     placeholder="Nome"      class="flex-1 p-2 bg-gray-700 rounded text-black"/>
-    <input x-model="novo.categoria" type="text"     placeholder="Categoria" class="flex-1 p-2 bg-gray-700 rounded text-black"/>
-    <input x-model.number="novo.preco" type="number" step="0.01" placeholder="Preço" class="flex-1 p-2 bg-gray-700 rounded text-black"/>
-    <button @click="criar()"        class="bg-green-600 hover:bg-green-700 px-4 rounded">Criar</button>
+    <input x-model="novo.nome"      type="text"     placeholder="Nome" aria-label="Nome do produto"      class="flex-1 p-2 bg-gray-700 rounded text-black"/>
+    <input x-model="novo.categoria" type="text"     placeholder="Categoria" aria-label="Categoria do produto" class="flex-1 p-2 bg-gray-700 rounded text-black"/>
+    <input x-model.number="novo.preco" type="number" step="0.01" placeholder="Preço" aria-label="Preço do produto" class="flex-1 p-2 bg-gray-700 rounded text-black"/>
+    <button @click="criar()" class="bg-green-600 hover:bg-green-700 px-4 rounded">
+      <span class="text-white font-semibold">Criar</span>
+    </button>
   </div>
 
   {{-- Listagem e Edição Inline --}}
@@ -57,6 +59,7 @@
           @click.prevent="adicionarAoCarrinho(p.id)"
           class="text-green-500 hover:text-green-700 ml-2 text-xl cursor-pointer"
           title="Adicionar ao carrinho"
+          aria-label="Adicionar ao carrinho"
         >
           🛒
         </a>
@@ -149,7 +152,11 @@ function estoqueData() {
 
     if (!res.ok) throw new Error('Erro ao adicionar ao carrinho');
 
+    // Store last added product ID for highlighting in cart
+    sessionStorage.setItem('lastAddedId', id);
+
     // Redireciona o usuário para o módulo carrinho
+    alert('Produto adicionado ao carrinho!');
     window.location.href = '/dashboard?modulo=carrinho';
 
   } catch (e) {
