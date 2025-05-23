@@ -136,26 +136,27 @@ function estoqueData() {
         })
         .catch(()=>alert('Erro ao excluir produto.'));
     },
-    async adicionarAoCarrinho(id) {
-      try {
-        const res = await fetch('{{ route('carrinho.adicionar') }}', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-          },
-          body: JSON.stringify({ produto_id: id, quantidade: 1 })
-        });
-        if (!res.ok) throw new Error('Erro ao adicionar ao carrinho');
-        const cartData = await res.json();
-        alert(
-          `Adicionado!\nSubtotal: R$${Number(cartData.subtotal).toFixed(2)}\nFrete: R$${Number(cartData.frete).toFixed(2)}\nTotal: R$${Number(cartData.total).toFixed(2)}`
-        );
-      } catch (e) {
-        console.error(e);
-        alert('Erro ao adicionar ao carrinho.');
-      }
-    },
+ async adicionarAoCarrinho(id) {
+  try {
+    const res = await fetch('{{ route('carrinho.adicionar') }}', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+      },
+      body: JSON.stringify({ produto_id: id, quantidade: 1 })
+    });
+
+    if (!res.ok) throw new Error('Erro ao adicionar ao carrinho');
+
+    // Redireciona o usuário para o módulo carrinho
+    window.location.href = '/dashboard?modulo=carrinho';
+
+  } catch (e) {
+    console.error(e);
+    alert('Erro ao adicionar ao carrinho.');
+  }
+}
   }
 }
 

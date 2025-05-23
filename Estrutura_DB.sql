@@ -11,7 +11,7 @@ CREATE TABLE usuarios (
 -- Tabela: produtos
 CREATE TABLE produtos (
     id BIGSERIAL PRIMARY KEY,
-    nome VARCHAR(255) NOT NULL,
+    nome VARCHAR(255) NOT NULL, 
     descricao TEXT,
     preco NUMERIC(10,2) NOT NULL,
     categoria VARCHAR(255),
