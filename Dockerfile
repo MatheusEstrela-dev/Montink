@@ -39,4 +39,4 @@ COPY . .
 RUN chown -R www-data:www-data /var/www && chmod -R 755 /var/www
 
 EXPOSE 9000
-CMD ["php-fpm"]
+CMD ["php", "artisan", "octane:start", "--server=swoole", "--host=0.0.0.0", "--port=8000"]
