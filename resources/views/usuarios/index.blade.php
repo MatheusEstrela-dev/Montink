@@ -18,20 +18,54 @@
             );
     },
     criar() {
-        fetch('/usuarios', {
+        fetch('{{ route("usuarios.store") }}', {
+            credentials: 'same-origin',      // envia o cookie de sessão para validar CSRF
             method: 'POST',
             headers: {
                 'Content-Type':'application/json',
+                'Accept':'application/json',   // força o Laravel a responder JSON
                 'X-CSRF-TOKEN':'{{ csrf_token() }}'
             },
             body: JSON.stringify(this.novo)
         })
-        .then(r=>r.json())
-        .then(u=>{
-            this.todos.unshift(u);
-            this.novo = { nome:'', email:'', senha:'' };
+        .then(response => {
+            if (!response.ok) {
+                // Se a resposta HTTP não for bem-sucedida (ex: 422, 500),
+                // tenta ler o corpo do erro como JSON.
+                return response.json().then(errorBody => {
+                    console.error('Erro do servidor:', errorBody); // Loga o corpo do erro no console do navegador
+                    let errorMessage = 'Erro ao criar usuário.';
+                    if (errorBody && errorBody.errors) { // Se houver erros de validação específicos
+                        errorMessage += '\n';
+                        for (const field in errorBody.errors) {
+                            errorMessage += `\n- ${errorBody.errors[field].join(', ')}`;
+                        }
+                    } else if (errorBody && errorBody.message) { // Se houver uma mensagem de erro geral
+                        errorMessage = `Erro: ${errorBody.message}`;
+                    }
+                    alert(errorMessage);
+                    throw new Error(response.statusText || 'Falha na criação do usuário');
+                }).catch(jsonParseError => {
+                    // Se não conseguir parsear o JSON do erro (ex: erro 500 com HTML em vez de JSON)
+                    console.error('Erro ao processar resposta de erro do servidor:', response);
+                    alert('Erro ao criar usuário. Resposta inesperada do servidor.');
+                    throw new Error('Resposta de erro não-JSON do servidor');
+                });
+            }
+            return response.json();
         })
-        .catch(()=>alert('Erro ao criar usuário.'));
+        .then(usuarioCriado => {
+            if (usuarioCriado && usuarioCriado.id) {
+                this.todos.unshift(usuarioCriado);
+                this.novo = { nome: '', email: '', senha: '' };
+            } else {
+                console.warn('Resposta OK do servidor, mas dados do usuário inesperados:', usuarioCriado);
+                alert('Resposta inesperada do servidor após tentar criar usuário.');
+            }
+        })
+        .catch(error => {
+            console.error('Falha final na operação de criar usuário:', error.message);
+        });
     },
     salvar(id) {
         const u = this.todos.find(x=>x.id===id);
@@ -44,11 +78,19 @@
             body: JSON.stringify({
                 nome: u.nome,
                 email: u.email,
-                senha: u.senha ?? ''
+                senha: u.senha ?? '' // Envia senha vazia se não for alterada, o backend deve tratar isso
             })
         })
         .then(r=>{
-            if(!r.ok) throw new Error();
+            if(!r.ok) {
+                 // Adicionar tratamento de erro similar ao 'criar()' aqui seria bom
+                console.error('Erro ao atualizar:', r);
+                throw new Error('Falha ao atualizar usuário');
+            }
+            return r.json(); // Assumindo que o backend retorna algo, como { success: true }
+        })
+        .then(responseData => {
+             // console.log(responseData); // Verifique o que o backend retorna
             this.editando = null;
             alert('Usuário atualizado!');
         })
@@ -61,13 +103,23 @@
             headers: { 'X-CSRF-TOKEN':'{{ csrf_token() }}' }
         })
         .then(r=>{
-            if(!r.ok) throw new Error();
+            if(!r.ok) {
+                // Adicionar tratamento de erro similar ao 'criar()' aqui seria bom
+                console.error('Erro ao excluir:', r);
+                throw new Error('Falha ao excluir usuário');
+            }
+            return r.json(); // Assumindo que o backend retorna algo, como { success: true }
+        })
+        .then(responseData => {
+            // console.log(responseData); // Verifique o que o backend retorna
             this.todos = this.todos.filter(x=>x.id!==id);
+            // Opcional: alert('Usuário excluído!');
         })
         .catch(()=>alert('Erro ao excluir.'));
     }
 }" class="space-y-4 text-gray-800">
 
+  {{-- O restante do seu HTML (Busca, Criar Usuário, Listagem, Paginação) continua aqui --}}
   {{-- Busca --}}
   <div class="relative">
     <input
