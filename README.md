@@ -28,8 +28,8 @@ Entre com o **Usuario: admin@montink.com e Senha: montink**
 Processo criativo da Inferecao pensando nas Funcionalidades / Requisitos funcionais e passivos
 
 ![login](https://github.com/user-attachments/assets/03e16822-1b97-482c-ba8d-38d14692b52b)
-https://github.com/user-attachments/assets/eedec95f-a10f-4fb7-b15c-5637365ec236
-
+> https://github.com/user-attachments/assets/eedec95f-a10f-4fb7-b15c-5637365ec236
+>
 > https://drive.google.com/drive/folders/1wnzBow_BSTC06LaR1VJl_0zOXiuKU5mj?usp=sharing
 > 
 > https://www.figma.com/design/ARo7RBz36nQtgannRUlVVP/Montink?m=auto&t=W8uHdOzQJothBCok-6
