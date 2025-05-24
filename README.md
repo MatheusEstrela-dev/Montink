@@ -31,6 +31,7 @@ Processo criativo da Inferecao pensando nas Funcionalidades / Requisitos funcion
 https://github.com/user-attachments/assets/eedec95f-a10f-4fb7-b15c-5637365ec236
 
 > https://drive.google.com/drive/folders/1wnzBow_BSTC06LaR1VJl_0zOXiuKU5mj?usp=sharing
+> 
 > https://www.figma.com/design/ARo7RBz36nQtgannRUlVVP/Montink?m=auto&t=W8uHdOzQJothBCok-6
 
 
