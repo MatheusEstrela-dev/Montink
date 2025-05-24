@@ -2,7 +2,7 @@
 
 Este projeto é um ERP de um site desenvolvido em **Laravel 12**, utilizando **Docker** para padronização de ambiente e **PostgreSQL 17.4** como banco de dados relacional.
 Com a finalidade de desmonstar os meus conhecimentos com a linguaguem PHP e o FrameWork Laravel, e as Stack`s que achei relevante para o projeto.
-Entre com o **Usuario: admin@montink.com e Senha: montink**
+Entre com o Usuario: admin@montink.com e Senha: montink
 ---
 
 ## 🚀 Stack Tecnológica
