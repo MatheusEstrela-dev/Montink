@@ -25,7 +25,7 @@ Entre com o **Usuario: admin@montink.com e Senha: montink**
 - 💾 **Banco relacional PostgreSQL 17.4**, com foco em performance e integridade de dados
 
 ## 🎨 Designer e Mockup 
-Processo criativo da Inferecao pensando nas Funcionalidades / Requisitos funcionais e passivos
+Processo criativo da interface pensando nas Funcionalidades / Requisitos funcionais e passivos
 
 > https://github.com/user-attachments/assets/eedec95f-a10f-4fb7-b15c-5637365ec236
 >
